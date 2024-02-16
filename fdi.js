@@ -4,14 +4,14 @@ import MyNewProject from './my-new-project.js';
 
 // Register sample-my-lib in the DI container
 function registerSampleMyLib(FDI) {
-    FDI.functions['getLanguage'] = () => () => SampleMyLib.getLanguage();
-    FDI.functions['getResource'] = (getLanguage) => () => SampleMyLib.getResource(getLanguage());
-    FDI.functions['getResourceString'] = (getResource) => (messageId) => SampleMyLib.getResourceString(getResource(), messageId);
+    FDI.addFunction('getLanguage', () => () => SampleMyLib.getLanguage());
+    FDI.addFunction('getResource', (getLanguage) => () => SampleMyLib.getResource(getLanguage()));
+    FDI.addFunction('getResourceString', (getResource) => (messageId) => SampleMyLib.getResourceString(getResource(), messageId));
 }
 
 // Register my-new-project in the DI container
 function registerMyNewProject(FDI) {
-    FDI.functions['sayHello'] = (getResourceString) => (name) => MyNewProject.sayHello(getResourceString, name);
+    FDI.addFunction('sayHello', (getResourceString) => (name) => MyNewProject.sayHello(getResourceString, name));
 }
 
 registerSampleMyLib(FDI);

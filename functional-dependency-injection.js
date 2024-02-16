@@ -2,6 +2,21 @@
 export const FDI = {
     // Function container
     functions: [],
+    // Dependent parameters of functions
+    functionsDepArgNames: [],
+    // Add a function to the container
+    addFunction: function (name, func) {
+        // Check if the function name already exists
+        if (this.functions[name]) {
+            throw new Error(`Function already exists: ${name}`);
+        }
+
+        // Get the dependent argument names of the function
+        const depArgNames = getFunctionArgumentNames(func);
+        
+        this.functions[name] = func;
+        this.functionsDepArgNames[name] = depArgNames;
+    },
     // Get the required function
     getRequiredFunction(functionInfo) {
         // If the argument is an object, get the first property name of the object
@@ -24,14 +39,15 @@ export const FDI = {
         }
 
         // The arguments of the retrieved function are dependency-injected functions, so recursively get them
-        const args = getFunctionArguments(func).map(arg => this.getRequiredFunction(arg));
+        const depArgNames = this.functionsDepArgNames[functionName];
+        const args = depArgNames.map(arg => this.getRequiredFunction(arg));
         // Execute the dependency-injected function
         return func(...args);
     }
 }
 
 // Get the argument names of a function
-function getFunctionArguments(func) {
+function getFunctionArgumentNames(func) {
     var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
     var ARGUMENT_NAMES = /([^\s,]+)/g;
     var fnStr = func.toString().replace(STRIP_COMMENTS, '');
