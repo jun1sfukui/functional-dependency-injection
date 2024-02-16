@@ -54,5 +54,25 @@ FDI.functions['getResourceString'] = (getResource) => (messageId) => getResource
 export default FDI;
 ```
 
+### Register you new project function sayHello to the container
+```javascript
+// your new project 'Say Hello'
+function sayHello(getResourceString, name) {
+    const hello = getResourceString('Hello');
+    return `${hello}, ${name}!`;
+}
+
+// add the project function to the container
+FDI.functions['sayHello'] = (getResourceString) => (name) => sayHello(getResourceString, name);
+
+// run the project 'Say Hello'
+function main() {
+    const sayHello = FDI.getRequiredFunction('sayHello');
+    const hello = sayHello('Jun-ichi');
+    console.log(hello); // Bonjour, Jun-ichi!
+}
+
+```
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

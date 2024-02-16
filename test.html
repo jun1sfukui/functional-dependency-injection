@@ -9,8 +9,10 @@
     <script type="module">
         import FDI from './fdi.js';
         // Test
-        const getResourceString = FDI.getRequiredFunction('getResourceString');
-        const hello = getResourceString('Hello');
+
+        const sayHello= FDI.getRequiredFunction('sayHello');
+        const hello = sayHello('Jun-ichi');
+
         console.log(hello); // Bonjour
         document.getElementById('result').innerHTML = hello;
     </script>

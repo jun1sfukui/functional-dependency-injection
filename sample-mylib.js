@@ -11,10 +11,10 @@ export function getResource(language) {
             'Hello': 'Hello',
         },
         'ja': {
-            'Hello': 'こんにちは'
+            'Hello': 'こんにちは',
         },
         'fr': {
-            'Hello': 'Bonjour'
+            'Hello': 'Bonjour',
         },
     }[language];
 }
