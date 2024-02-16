@@ -46,7 +46,7 @@ export default {
 import { FDI } from './functional-dependency-injection.js';
 import { getLanguage, getResource, getResourceString } from './sample-mylib.js';
 
-// Register functions in the DI container
+// add functions to the DI container
 FDI.addFunction('getLanguage', () => () => SampleMyLib.getLanguage());
 FDI.addFunction('getResource', (getLanguage) => () => SampleMyLib.getResource(getLanguage()));
 FDI.addFunction('getResourceString', (getResource) => (messageId) => SampleMyLib.getResourceString(getResource(), messageId));
@@ -54,24 +54,25 @@ FDI.addFunction('getResourceString', (getResource) => (messageId) => SampleMyLib
 export default FDI;
 ```
 
-### Register you new project function 'sayHello' to the container
+### Register your new project function 'sayHello' to the container
 ```javascript
-// your new project 'Say Hello'
+// Your new project 'Say Hello'
 function sayHello(getResourceString, name) {
     const hello = getResourceString('Hello');
     return `${hello}, ${name}!`;
 }
 
-// add the project function to the container
+// Add the project function to the container
 FDI.addFunctions('sayHello'], (getResourceString) => (name) => sayHello(getResourceString, name));
 
-// run the project 'Say Hello'
+// Run the project 'Say Hello'
 function main() {
     const sayHello = FDI.getRequiredFunction('sayHello');
     const hello = sayHello('Jun-ichi');
     console.log(hello); // Bonjour, Jun-ichi!
 }
 
+main();
 ```
 
 ## License
