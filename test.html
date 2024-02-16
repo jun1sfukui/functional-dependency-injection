@@ -1,0 +1,18 @@
+<meta charset="UTF-8">
+<html>
+<head>
+    <title>Functional Dependency Injection Test</title>
+</head>
+<body>
+    <h1>Functional Dependency Injection Test</h1>
+    <div id="result"></div>
+    <script type="module">
+        import FDI from './fdi.js';
+        // Test
+        const getResourceString = FDI.getRequiredFunction('getResourceString');
+        const hello = getResourceString('Hello');
+        console.log(hello); // Bonjour
+        document.getElementById('result').innerHTML = hello;
+    </script>
+</body>
+</html>
